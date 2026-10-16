@@ -11,7 +11,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if was_collected:
 		return
 
-	if body.is_in_group("player"):
+	# Solo se recolecta si colisiona con el jugador Y la misión está activa
+	if body.is_in_group("player") and QuestManager.quest_state == QuestManager.QuestState.ACTIVE:
 		was_collected = true
 		collected.emit()
 		queue_free()

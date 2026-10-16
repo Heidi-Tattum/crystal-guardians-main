@@ -10,6 +10,9 @@ func _ready() -> void:
 	var crystals := $crystals.get_children()
 
 	total_crystals = crystals.size()
+	
+	# Asignamos la cantidad total requerida a QuestManager
+	QuestManager.required_crystals = total_crystals
 
 	for crystal in crystals:
 		crystal.collected.connect(
@@ -20,6 +23,10 @@ func _ready() -> void:
 
 func _on_crystal_collected() -> void:
 	crystals_collected += 1
+	
+	# Actualizamos la variable global que lee el NPC
+	QuestManager.collected_crystals = crystals_collected
+	
 	update_crystal_label()
 
 	if crystals_collected >= total_crystals:
